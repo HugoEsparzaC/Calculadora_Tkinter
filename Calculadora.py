@@ -30,7 +30,7 @@ class Calculadora(tk.Tk):
         boton_ocho.grid(row=1, column=1, padx=1, pady=1)
         boton_nueve = tk.Button(botones_frame, text='9', width=10, height=3, bd=0, bg='#fff', cursor='hand2', command=lambda: self._evento_click(9))
         boton_nueve.grid(row=1, column=2, padx=1, pady=1)
-        boton_multiplicar = tk.Button(botones_frame, text='X', width=10, height=3, bd=0, bg='#eee', cursor='hand2', command=lambda: self._evento_click('X'))
+        boton_multiplicar = tk.Button(botones_frame, text='X', width=10, height=3, bd=0, bg='#eee', cursor='hand2', command=lambda: self._evento_click('*'))
         boton_multiplicar.grid(row=1, column=3, padx=1, pady=1)
 
         boton_cuatro = tk.Button(botones_frame, text='4', width=10, height=3, bd=0, bg='#fff', cursor='hand2', command=lambda: self._evento_click(4))
@@ -55,7 +55,7 @@ class Calculadora(tk.Tk):
         boton_cero.grid(row=4, column=0, columnspan=2, padx=1, pady=1)
         boton_punto = tk.Button(botones_frame, text='.', width=10, height=3, bd=0, bg='#eee', cursor='hand2', command=lambda: self._evento_click('.'))
         boton_punto.grid(row=4, column=2, padx=1, pady=1)
-        boton_igual = tk.Button(botones_frame, text='=', width=10, height=3, bd=0, bg='#eee', cursor='hand2', command=lambda: self._evento_click('='))
+        boton_igual = tk.Button(botones_frame, text='=', width=10, height=3, bd=0, bg='#eee', cursor='hand2', command=self._evento_evaluar)
         boton_igual.grid(row=4, column=3, padx=1, pady=1)
 
     def _evento_limpiar(self):
@@ -65,6 +65,11 @@ class Calculadora(tk.Tk):
     def _evento_click(self, elemento):
         self.expresion = f'{self.expresion}{elemento}'
         self.entrada_texto.set(self.expresion)
+
+    def _evento_evaluar(self):
+        resultado = str(eval(self.expresion))
+        self.entrada_texto.set(resultado)
+        self.expresion = ''
 
 if __name__ == '__main__':
     calculadora = Calculadora()
