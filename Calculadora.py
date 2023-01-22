@@ -67,9 +67,15 @@ class Calculadora(tk.Tk):
         self.entrada_texto.set(self.expresion)
 
     def _evento_evaluar(self):
-        resultado = str(eval(self.expresion))
-        self.entrada_texto.set(resultado)
-        self.expresion = ''
+        try:
+            if self.expresion:
+                resultado = str(eval(self.expresion))
+                self.entrada_texto.set(resultado)
+        except Exception as e:
+            messagebox.showerror('Error', f'Ocurrio un error: {e}')
+            self.entrada_texto.set('')
+        finally:
+            self.expresion = ''
 
 if __name__ == '__main__':
     calculadora = Calculadora()
